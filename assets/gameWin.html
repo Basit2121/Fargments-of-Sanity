@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Fragments of Sanity</title>
+    <script src="/eel.js"></script>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            font-size: 12pt;
+            font-family: 'Press Start 2p';
+            color: white;
+            background: black;
+            line-height: 2.5;
+            background-image: url('image.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .start-btn{
+            text-align: center;
+            display: inline-block;
+            margin:5px;
+            font-weight: bold;
+            padding: 10px 0 10px 10px ;
+            background-color: lightgray;
+            text-shadow: -1px -1px black, 1px 1px white;
+            color: gray;
+            -webkit-border-radius: 7px;
+            -moz-border-radius: 7px;
+            -o-border-radius: 7px;
+            border-radius: 7px;
+            box-shadow: 0 .2em gray; 
+            cursor: pointer;
+            transform: translate(-50%, -50%);
+        }
+        .start-btn:hover {
+            background-color: gray;
+            color: white;
+        }
+        @keyframes blink {
+        0% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+        }
+
+        #startText::after {
+        content: "|";
+        animation: blink 1s linear infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        .blinking {
+            animation: blink 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div style="padding: 200px;">
+    <p class="blinking">-> PRESS ENTER TO PLAY THE AUDIO</p>
+    <p>In the end, after an agonizing struggle, your words pierce through Maya's veil of obsession. With trembling hands, she unlocks the basement door, her eyes reflecting the turmoil within her. But as you step into the uncertain freedom beyond, a heavy question weighs on your mind like an anchor in the sea of uncertainty: "Will this nightmare ever truly end?"</p> 
+    <a href="index.html">
+        <span id="startBtn" class='start-btn' style="margin-left: 50%; margin-top: 5%; padding: 1%;" onclick="changeText()">CONTINUE</span>
+    </a>
+    </div>
+
+    <audio id="myAudio" src="finish.mp3"></audio>
+    <script>
+        function changeText() {
+            var startBtn = document.getElementById('startBtn');
+            startBtn.textContent = 'Loading...';
+        }
+        function playAudio() {
+            var audio = document.getElementById("myAudio");
+            audio.play();
+        }
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                playAudio();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Fragments of Sanity</title>
+    <script src="/eel.js"></script>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        body {
+            font-size: 12pt;
+            font-family: 'Press Start 2p';
+            background-image: url('image.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 2px solid lightgray;
+            font-family: 'Press Start 2p';
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .option-btn {
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: lightgray;
+            text-shadow: -1px -1px black, 1px 1px white;
+            color: gray;
+            border: none;
+            border-radius: 7px;
+            box-shadow: 0 .2em gray; 
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .option-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form>
+            <h2>Enter username</h2>
+            <input type="text" id="nameInput" placeholder="username" onkeyup="checkUsername()">
+            <h2>Choose Difficulty</h2>
+            <div class="options">
+                <a href="game.html"><button type="button" id="easyBtn" class="option-btn" onclick="get_name('Easy'); changeText_easy()" disabled>Easy</button></a>
+                <a href="game.html"><button type="button" id="mediumBtn" class="option-btn" onclick="get_name('Medium'); changeText_medium()" disabled>Medium</button></a>
+                <a href="game.html"><button type="button" id="hardBtn" class="option-btn" onclick="get_name('Hard'); changeText_hard()" disabled>Hard</button></a>
+            </div>
+        </form>
+    </div>
+    <script>
+        function checkUsername() {
+            var nameInput = document.getElementById("nameInput");
+            var easyBtn = document.getElementById("easyBtn");
+            var mediumBtn = document.getElementById("mediumBtn");
+            var hardBtn = document.getElementById("hardBtn");
+    
+            if (nameInput.value.trim() !== "") {
+                easyBtn.disabled = false;
+                mediumBtn.disabled = false;
+                hardBtn.disabled = false;
+            } else {
+                easyBtn.disabled = true;
+                mediumBtn.disabled = true;
+                hardBtn.disabled = true;
+            }
+        }
+
+        function get_name() {
+            var name = document.getElementById("nameInput").value;
+            eel.game(name);
+        }
+        function changeText_easy() {
+            var startBtn = document.getElementById('easyBtn');
+            startBtn.textContent = 'Loading...';
+        }
+        function changeText_medium() {
+            var startBtn = document.getElementById('mediumBtn');
+            startBtn.textContent = 'Loading...';
+        }
+        function changeText_hard() {
+            var startBtn = document.getElementById('hardBtn');
+            startBtn.textContent = 'Loading...';
+        }
+    </script>    
+</body>
+</html>
