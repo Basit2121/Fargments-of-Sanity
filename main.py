@@ -66,7 +66,7 @@ audio_file = "assets\\audBG.mp3"
 @eel.expose
 def game(username):
     global chat
-    genai.configure(api_key='AIzaSyBVSWintcm7wSmjYygpvKU37NXo2LhWx98')
+    genai.configure(api_key='keyhere')
     model = genai.GenerativeModel('models/gemini-pro')
     chat = model.start_chat()
     game_start = f'Lets play a game. I want you to act like a Yandere (Never mention that you are a yandere), Your name will be Maya. In my game, I (my name is {username}) will try to convince Maya to open a door. Maya refuses. Responses: No more than two line, max 20 words. respond with the response that maya would give in a conversation, no extra information'
