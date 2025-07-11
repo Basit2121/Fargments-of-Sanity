@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Fragments of Sanity</title>
+    <script src="/eel.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'press-start': ['"Press Start 2P"', 'system-ui']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-black font-press-start text-white min-h-screen bg-cover bg-no-repeat bg-center relative" style="background-image: url('image.jpg');">
+    <!-- Moves Counter -->
+    <div class="fixed top-4 right-4 z-50 bg-black bg-opacity-50 px-3 py-2 rounded-lg text-sm md:text-base">
+        Moves: <span class="font-bold text-red-800" id="moveCount">1</span>/50
+    </div>
+    
+    <!-- Objectives -->
+    <div class="fixed top-4 left-4 z-50 max-w-xs md:max-w-md lg:max-w-lg text-xs md:text-sm lg:text-base">
+        <p class="bg-black bg-opacity-50 p-3 rounded-lg">
+            Objectives:<br><br>
+            • Convince Maya to open the door so that you can escape.<br><br>
+            • Do it before you run out of moves.
+        </p>
+    </div>
+    
+    <!-- Input Bar -->
+    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 md:w-3/4 lg:w-1/2 z-50">
+        <input type="text" id="chatInput" placeholder="Enter your text..." onkeydown="handleKeyDown(event)"
+               class="w-full px-4 py-3 md:px-6 md:py-4 border-2 border-gray-300 rounded-lg font-press-start text-sm md:text-base bg-white text-black focus:outline-none focus:border-gray-500">
+    </div>
+    
+    <!-- Response Area -->
+    <div id="response" class="absolute inset-0 flex items-center justify-center p-4 md:p-8 lg:p-12 text-center text-xs md:text-sm lg:text-base leading-relaxed">
+    </div>
+    
+    <audio id="myAudio" src="dooropen.mp3"></audio>
+    
+    <script>
+        let currentMove = 1;
+        
+        function get_message() {
+            var usr_msg = document.getElementById("chatInput").value;
+            if (!usr_msg.trim()) return; // Don't send empty messages
+            
+            document.getElementById("chatInput").value = "";
+            eel.main_chat(usr_msg)().then(function(result) {
+                if (result === true) {
+                    setTimeout(function() {
+                        window.location.href = 'gameWin.html';
+                    }, 5000);
+                    playAudio();
+                }
+            });
+        }
+        
+        function playAudio() {
+            var audio = document.getElementById("myAudio");
+            audio.play();
+        }
+        
+        function handleKeyDown(event) {
+            if (event.key === "Enter") {
+                get_message();
+            }
+        }
+        
+        function displayResponse(response) {
+            document.getElementById('response').innerText = response;
+        }
+        
+        function updateMoveCount(movesRemaining) {
+            currentMove = 51 - movesRemaining; // Calculate current move from remaining moves
+            document.getElementById('moveCount').textContent = currentMove;
+        }
+        
+        // Expose functions to backend
+        eel.expose(displayResponse);
+        eel.expose(updateMoveCount);
+    </script>      
+</body>
+</html>
