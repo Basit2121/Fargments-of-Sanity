@@ -2,7 +2,7 @@
 
 A psychological text-based escape game powered by AI.
 
-![screenshot](screenshot.png)
+![screenshot](screenshot.PNG)
 
 ## Game Objective
 
@@ -58,7 +58,7 @@ You find yourself trapped in a mysterious place. Your only way out is to convinc
 - `assets/` — HTML, images, and audio files
 - `game.py` — Main backend logic
 - `README.md` — This file
-- `screenshot.png` — Game screenshot
+- `screenshot.PNG` — Game screenshot
 
 ## License
 This project is for educational and personal use.
